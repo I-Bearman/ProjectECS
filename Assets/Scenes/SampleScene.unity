@@ -354,7 +354,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: DogPBR
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2027389379571361084, guid: 828dbcce633fab144ba13cdf40e3d123, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 828dbcce633fab144ba13cdf40e3d123, type: 3}
 --- !u!1001 &6770597667078710943
 PrefabInstance:
@@ -366,6 +367,10 @@ PrefabInstance:
     - target: {fileID: 902852245295431275, guid: dfbf0798d2694ca4b8599753f00546cd, type: 3}
       propertyPath: m_Name
       value: GruntPBR
+      objectReference: {fileID: 0}
+    - target: {fileID: 902852245295431275, guid: dfbf0798d2694ca4b8599753f00546cd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7984956343881576855, guid: dfbf0798d2694ca4b8599753f00546cd, type: 3}
       propertyPath: m_RootOrder
