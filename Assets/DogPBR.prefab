@@ -1932,7 +1932,7 @@ GameObject:
   - component: {fileID: 7549893149481758153}
   - component: {fileID: 7549893149491266087}
   - component: {fileID: 2027389379571361087}
-  - component: {fileID: 2027389379571361084}
+  - component: {fileID: 266811093}
   m_Layer: 0
   m_Name: DogPBR
   m_TagString: Untagged
@@ -1988,7 +1988,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConversionMode: 1
---- !u!114 &2027389379571361084
+--- !u!114 &266811093
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1997,10 +1997,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7549893149481791977}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9bc58abc2e25ce4e9f18d5612685e58, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b149134fefee054790797e343735c8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
+  speed: 10
 --- !u!1 &7549893149481791979
 GameObject:
   m_ObjectHideFlags: 0
