@@ -1,4 +1,3 @@
-using UnityEngine;
 using Unity.Entities;
 
 public class CharacterShootSystem : ComponentSystem
@@ -18,7 +17,10 @@ public class CharacterShootSystem : ComponentSystem
         Entities.With(_shootQuery).ForEach(
             (Entity entity, UserInputData inputData, ref InputData input, ref MoveData move) => 
             {
-                
+                if(input.Shoot > 0f && inputData.ShootAction != null && inputData.ShootAction is IAbility ability)
+                {
+                    ability.Execute();
+                }
             });
     }
 }

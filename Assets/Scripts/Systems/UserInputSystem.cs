@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -12,9 +10,11 @@ public class UserInputSystem : ComponentSystem
 
     private InputAction _moveAction;
     private InputAction _shootAction;
+    private InputAction _burstAction;
 
     private float2 _moveInput;
     private float _shootInput;
+    private float _burstInput;
 
     protected override void OnCreate()
     {
@@ -40,12 +40,20 @@ public class UserInputSystem : ComponentSystem
         _shootAction.started += context => { _shootInput = context.ReadValue<float>(); };
         _shootAction.canceled += context => { _shootInput = context.ReadValue<float>(); };
         _shootAction.Enable();
+
+        _burstAction = new InputAction("burst", binding: "<Keyboard>/Left Shift");
+        _burstAction.performed += context => { _burstInput = context.ReadValue<float>(); };
+        _burstAction.started += context => { _burstInput = context.ReadValue<float>(); };
+        _burstAction.canceled += context => { _burstInput = context.ReadValue<float>(); };
+        _burstAction.Enable();
+
     }
 
     protected override void OnStopRunning()
     {
         _moveAction.Disable();
         _shootAction.Disable();
+        _burstAction.Disable();
     }
 
     protected override void OnUpdate()
@@ -55,6 +63,7 @@ public class UserInputSystem : ComponentSystem
             {
                 inputData.Move = _moveInput;
                 inputData.Shoot = _shootInput;
+                inputData.Burst = _burstInput;
             });
     }
 }
