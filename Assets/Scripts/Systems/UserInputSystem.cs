@@ -10,11 +10,11 @@ public class UserInputSystem : ComponentSystem
 
     private InputAction _moveAction;
     private InputAction _shootAction;
-    private InputAction _burstAction;
+    private InputAction _dashAction;
 
     private float2 _moveInput;
     private float _shootInput;
-    private float _burstInput;
+    private float _dashInput;
 
     protected override void OnCreate()
     {
@@ -41,11 +41,11 @@ public class UserInputSystem : ComponentSystem
         _shootAction.canceled += context => { _shootInput = context.ReadValue<float>(); };
         _shootAction.Enable();
 
-        _burstAction = new InputAction("burst", binding: "<Keyboard>/Left Shift");
-        _burstAction.performed += context => { _burstInput = context.ReadValue<float>(); };
-        _burstAction.started += context => { _burstInput = context.ReadValue<float>(); };
-        _burstAction.canceled += context => { _burstInput = context.ReadValue<float>(); };
-        _burstAction.Enable();
+        _dashAction = new InputAction("dash", binding: "<Keyboard>/Left Shift");
+        _dashAction.performed += context => { _dashInput = context.ReadValue<float>(); };
+        _dashAction.started += context => { _dashInput = context.ReadValue<float>(); };
+        _dashAction.canceled += context => { _dashInput = context.ReadValue<float>(); };
+        _dashAction.Enable();
 
     }
 
@@ -53,7 +53,7 @@ public class UserInputSystem : ComponentSystem
     {
         _moveAction.Disable();
         _shootAction.Disable();
-        _burstAction.Disable();
+        _dashAction.Disable();
     }
 
     protected override void OnUpdate()
@@ -63,7 +63,7 @@ public class UserInputSystem : ComponentSystem
             {
                 inputData.Move = _moveInput;
                 inputData.Shoot = _shootInput;
-                inputData.Burst = _burstInput;
+                inputData.Dash = _dashInput;
             });
     }
 }

@@ -26,7 +26,7 @@ public struct InputData : IComponentData
 {
     public float2 Move;
     public float Shoot;
-    public float Burst;
+    public float Dash;
 }
 
 public struct MoveData : IComponentData
