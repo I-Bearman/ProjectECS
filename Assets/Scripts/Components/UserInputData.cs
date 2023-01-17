@@ -2,25 +2,29 @@
 using Unity.Mathematics;
 using Unity.Entities;
 
-public class UserInputData: MonoBehaviour, IConvertGameObjectToEntity
+public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
 {
     public float speed;
+    public float dashSpeed;
+    public float dashTime;
 
     public MonoBehaviour ShootAction;
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         dstManager.AddComponentData(entity, new InputData());
-        dstManager.AddComponentData(entity, new MoveData() 
-        { 
-            Speed = speed / 100 
-        });
-        if(ShootAction != null && ShootAction is IAbility)
+        dstManager.AddComponentData(entity, new MoveData
+        {
+            Speed = speed
+        }); 
+
+        if (ShootAction != null && ShootAction is IAbility)
         {
             dstManager.AddComponentData(entity, new ShootData());
         }
     }
 }
+
 
 public struct InputData : IComponentData
 {
@@ -32,9 +36,12 @@ public struct InputData : IComponentData
 public struct MoveData : IComponentData
 {
     public float Speed;
+    public float DashSpeed;
+    //public AnimationCurve DashSpeedCurve;
+    public float DashTime;
 }
 
 public struct ShootData : IComponentData
 {
-    
+
 }
