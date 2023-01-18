@@ -41,7 +41,7 @@ public class UserInputSystem : ComponentSystem
         _shootAction.canceled += context => { _shootInput = context.ReadValue<float>(); };
         _shootAction.Enable();
 
-        _dashAction = new InputAction("dash", binding: "<Keyboard>/Left Shift");
+        _dashAction = new InputAction("dash", binding: "<Keyboard>/leftShift");
         _dashAction.performed += context => { _dashInput = context.ReadValue<float>(); };
         _dashAction.started += context => { _dashInput = context.ReadValue<float>(); };
         _dashAction.canceled += context => { _dashInput = context.ReadValue<float>(); };

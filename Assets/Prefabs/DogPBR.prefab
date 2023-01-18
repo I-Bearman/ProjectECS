@@ -2003,9 +2003,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b149134fefee054790797e343735c8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 100
-  dashSpeed: 1000
-  dashTime: 100
+  speed: 10
+  dashSpeed: 100
+  dashDelay: 0.5
   ShootAction: {fileID: 2027389379583391085}
 --- !u!114 &2027389379583391085
 MonoBehaviour:

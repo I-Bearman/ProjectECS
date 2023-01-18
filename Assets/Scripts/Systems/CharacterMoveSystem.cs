@@ -1,6 +1,5 @@
 using UnityEngine;
 using Unity.Entities;
-using System.Collections;
 
 public class CharacterMoveSystem : ComponentSystem
 {
@@ -8,6 +7,7 @@ public class CharacterMoveSystem : ComponentSystem
     private Rigidbody _rigidbody;
     private bool _isDashing = false;
 
+    private double _dashTime = double.MinValue;
     protected override void OnCreate()
     {
         _moveQuery = GetEntityQuery(ComponentType.ReadOnly<InputData>(), ComponentType.ReadOnly<MoveData>(), ComponentType.ReadOnly<Transform>());
@@ -25,14 +25,17 @@ public class CharacterMoveSystem : ComponentSystem
         Entities.With(_moveQuery).ForEach(
             (Entity entity, Transform transform, ref InputData inputData, ref MoveData move) =>
             {
-                Move(transform, inputData, move);
-                Dash(inputData, move);
-            });
-    }
+                if (!_isDashing)
+                {
+                    Move(transform, inputData, move);
+                }
+                if (inputData.Dash > 0f && Time.ElapsedTime > _dashTime + move.DashDelay)
+                {
+                    _isDashing = true;
+                    Dash(transform, move);
+                }
 
-    private void ChangeVelocity(InputData inputData, MoveData moveData)
-    {
-        _rigidbody.velocity = new Vector3(inputData.Move.x, 0, inputData.Move.y) * moveData.Speed;
+            });
     }
 
     private void Move(Transform transform, InputData inputData, MoveData moveData)
@@ -44,34 +47,23 @@ public class CharacterMoveSystem : ComponentSystem
             if (Mathf.Abs(dx) > 0.01f || Mathf.Abs(dy) > 0.01f)
             {
                 Vector3 lookDirection = new Vector3(dx, 0, dy);
-                transform.LookAt(lookDirection*100);
+                transform.LookAt(lookDirection * 100);
             }
 
-            /*var pos = transform.position;
-            pos += new Vector3(inputData.Move.x * move.Speed, 0, inputData.Move.y * move.Speed);
-            transform.position = pos;*/
-
-            //_rigidbody.AddForce(new Vector3(inputData.Move.x * moveData.Speed, 0, inputData.Move.y * moveData.Speed), ForceMode.Force);
-            ChangeVelocity(inputData, moveData);
+            _rigidbody.velocity = new Vector3(inputData.Move.x, 0, inputData.Move.y) * moveData.Speed;
         }
     }
-    private IEnumerator Dash(InputData inputData, MoveData moveData)
+    private void Dash(Transform transform, MoveData moveData)
     {
-        if (_isDashing) yield break;
 
-        _isDashing = true;
+        _dashTime = Time.ElapsedTime;
+        _rigidbody.velocity = transform.forward * moveData.DashSpeed;
 
-        var elapsedTime = 0f;
-        while (elapsedTime < moveData.DashTime)
+        if (Time.ElapsedTime > _dashTime + moveData.DashDelay)
         {
-            var velocityMultiplier = moveData.DashSpeed/* * moveData.DashSpeedCurve.Evaluate(elapsedTime)*/;
-
-            ChangeVelocity(inputData, moveData);
-
-            elapsedTime += Time.DeltaTime;
-            yield return new WaitForSeconds(Time.DeltaTime);
+            _isDashing = false;
         }
-        _isDashing = false;
-        yield break;
+
+        Debug.Log(_dashTime);
     }
 }

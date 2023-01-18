@@ -669,7 +669,7 @@ GameObject:
   - component: {fileID: 1426301511}
   - component: {fileID: 1426301510}
   m_Layer: 5
-  m_Name: BurstButton
+  m_Name: DashButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

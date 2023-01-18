@@ -3,7 +3,8 @@ using Unity.Entities;
 
 public class BulletSystem : ComponentSystem
 {
-    private EntityQuery _bulletQuery;
+    private EntityQuery _bulletQuery; 
+
     protected override void OnCreate()
     {
         _bulletQuery = GetEntityQuery(ComponentType.ReadOnly<BulletComponent>());

@@ -6,7 +6,7 @@ public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
 {
     public float speed;
     public float dashSpeed;
-    public float dashTime;
+    public float dashDelay;
 
     public MonoBehaviour ShootAction;
 
@@ -15,8 +15,10 @@ public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
         dstManager.AddComponentData(entity, new InputData());
         dstManager.AddComponentData(entity, new MoveData
         {
-            Speed = speed
-        }); 
+            Speed = speed,
+            DashSpeed = dashSpeed,
+            DashDelay = dashDelay
+        });
 
         if (ShootAction != null && ShootAction is IAbility)
         {
@@ -37,8 +39,7 @@ public struct MoveData : IComponentData
 {
     public float Speed;
     public float DashSpeed;
-    //public AnimationCurve DashSpeedCurve;
-    public float DashTime;
+    public float DashDelay;
 }
 
 public struct ShootData : IComponentData
