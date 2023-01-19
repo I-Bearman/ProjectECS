@@ -6,8 +6,7 @@ public class CharacterMoveSystem : ComponentSystem
     private EntityQuery _moveQuery;
     private Rigidbody _rigidbody;
     private bool _isDashing = false;
-
-    private double _dashTime = double.MinValue;
+    private double _pastDashTime = double.MinValue;
     protected override void OnCreate()
     {
         _moveQuery = GetEntityQuery(ComponentType.ReadOnly<InputData>(), ComponentType.ReadOnly<MoveData>(), ComponentType.ReadOnly<Transform>());
@@ -29,12 +28,16 @@ public class CharacterMoveSystem : ComponentSystem
                 {
                     Move(transform, inputData, move);
                 }
-                if (inputData.Dash > 0f && Time.ElapsedTime > _dashTime + move.DashDelay)
+                if (inputData.Dash > 0f && Time.ElapsedTime > _pastDashTime + move.DashDelay)
                 {
                     _isDashing = true;
                     Dash(transform, move);
                 }
-
+                if (_isDashing && Time.ElapsedTime > _pastDashTime + move.DashTime)
+                {
+                    _rigidbody.useGravity = true;
+                    _isDashing = false;
+                }
             });
     }
 
@@ -49,21 +52,13 @@ public class CharacterMoveSystem : ComponentSystem
                 Vector3 lookDirection = new Vector3(dx, 0, dy);
                 transform.LookAt(lookDirection * 100);
             }
-
             _rigidbody.velocity = new Vector3(inputData.Move.x, 0, inputData.Move.y) * moveData.Speed;
         }
     }
     private void Dash(Transform transform, MoveData moveData)
     {
-
-        _dashTime = Time.ElapsedTime;
+        _pastDashTime = Time.ElapsedTime;
+        _rigidbody.useGravity = false;
         _rigidbody.velocity = transform.forward * moveData.DashSpeed;
-
-        if (Time.ElapsedTime > _dashTime + moveData.DashDelay)
-        {
-            _isDashing = false;
-        }
-
-        Debug.Log(_dashTime);
     }
 }

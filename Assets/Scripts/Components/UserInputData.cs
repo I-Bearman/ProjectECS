@@ -6,6 +6,9 @@ public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
 {
     public float speed;
     public float dashSpeed;
+    [Tooltip("time of self dash")]
+    public float dashTime;
+    [Tooltip("time between dashes")]
     public float dashDelay;
 
     public MonoBehaviour ShootAction;
@@ -17,6 +20,7 @@ public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
         {
             Speed = speed,
             DashSpeed = dashSpeed,
+            DashTime = dashTime,
             DashDelay = dashDelay
         });
 
@@ -26,7 +30,6 @@ public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
         }
     }
 }
-
 
 public struct InputData : IComponentData
 {
@@ -39,7 +42,8 @@ public struct MoveData : IComponentData
 {
     public float Speed;
     public float DashSpeed;
-    public float DashDelay;
+    public float DashTime; //time of self dash
+    public float DashDelay; //time between dashes
 }
 
 public struct ShootData : IComponentData
