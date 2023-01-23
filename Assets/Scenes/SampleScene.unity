@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MovementRange: 50
-  m_ControlPath: <Gamepad>/rightStick
+  m_ControlPath: <Gamepad>/leftStick
 --- !u!1 &593803052
 GameObject:
   m_ObjectHideFlags: 0

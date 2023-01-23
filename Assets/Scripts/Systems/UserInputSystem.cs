@@ -1,60 +1,28 @@
-using UnityEngine;
 using Unity.Entities;
-using Unity.Mathematics;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class UserInputSystem : ComponentSystem
+public class UserInputSystem : ComponentSystem, PlayerInputAction.IPlayerActions
 {
-
     private EntityQuery _movementQuery;
 
-    private InputAction _moveAction;
-    private InputAction _shootAction;
-    private InputAction _dashAction;
-
-    private float2 _moveInput;
+    private Vector2 _moveInput;
     private float _shootInput;
     private float _dashInput;
 
     protected override void OnCreate()
     {
         _movementQuery = GetEntityQuery(ComponentType.ReadOnly<InputData>());
+        var inputAction = new PlayerInputAction();
+        inputAction.Player.SetCallbacks(this);
+        inputAction.Player.Enable();
     }
 
-    protected override void OnStartRunning()
-    {
-        _moveAction = new InputAction("move", binding: "<Gamepad>/rightStick");
-        _moveAction.AddCompositeBinding("Dpad")
-            .With("Up", "<Keyboard>/w")
-            .With("Down", "<Keyboard>/s")
-            .With("Left", "<Keyboard>/a")
-            .With("Right", "<Keyboard>/d");
+    public void OnMove(InputAction.CallbackContext context) => _moveInput = context.ReadValue<Vector2>();
 
-        _moveAction.performed += context => { _moveInput = context.ReadValue<Vector2>(); };
-        _moveAction.started += context => { _moveInput = context.ReadValue<Vector2>(); };
-        _moveAction.canceled += context => { _moveInput = context.ReadValue<Vector2>(); };
-        _moveAction.Enable();
+    public void OnShoot(InputAction.CallbackContext context) => _shootInput = context.ReadValue<float>();
 
-        _shootAction = new InputAction("shoot", binding: "<Keyboard>/Space");
-        _shootAction.performed += context => { _shootInput = context.ReadValue<float>(); };
-        _shootAction.started += context => { _shootInput = context.ReadValue<float>(); };
-        _shootAction.canceled += context => { _shootInput = context.ReadValue<float>(); };
-        _shootAction.Enable();
-
-        _dashAction = new InputAction("dash", binding: "<Keyboard>/leftShift");
-        _dashAction.performed += context => { _dashInput = context.ReadValue<float>(); };
-        _dashAction.started += context => { _dashInput = context.ReadValue<float>(); };
-        _dashAction.canceled += context => { _dashInput = context.ReadValue<float>(); };
-        _dashAction.Enable();
-
-    }
-
-    protected override void OnStopRunning()
-    {
-        _moveAction.Disable();
-        _shootAction.Disable();
-        _dashAction.Disable();
-    }
+    public void OnDash(InputAction.CallbackContext context) => _dashInput = context.ReadValue<float>();
 
     protected override void OnUpdate()
     {
