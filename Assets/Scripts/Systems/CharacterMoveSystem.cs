@@ -52,7 +52,10 @@ public class CharacterMoveSystem : ComponentSystem
                 Vector3 lookDirection = new Vector3(dx, 0, dy);
                 transform.LookAt(lookDirection * 100);
             }
-            _rigidbody.velocity = new Vector3(inputData.Move.x, 0, inputData.Move.y) * moveData.Speed;
+            //_rigidbody.velocity = new Vector3(inputData.Move.x, 0, inputData.Move.y) * moveData.Speed;
+            var pos = transform.position;
+            pos += new Vector3(inputData.Move.x, 0, inputData.Move.y) * moveData.Speed;
+            transform.position = pos;
         }
     }
     private void Dash(Transform transform, MoveData moveData)
