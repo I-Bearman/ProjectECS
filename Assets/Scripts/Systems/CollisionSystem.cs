@@ -3,7 +3,6 @@ using UnityEngine;
 using Unity.Entities;
 using Unity.Mathematics;
 using static CollisionAbility;
-using System.Linq;
 
 namespace DefaultNamespace.Systems
 {
@@ -54,8 +53,11 @@ namespace DefaultNamespace.Systems
 
                     if (size > 0)
                     {
-                        abilityCollision.collisions = _results.ToList() ;
-                        abilityCollision.Execute();                    
+                        foreach (var result in _results)
+                        {
+                            abilityCollision?.collisions?.Add(result);
+                        }
+                        abilityCollision.Execute();
                     }
                 });
         }

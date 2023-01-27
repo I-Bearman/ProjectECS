@@ -1,11 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ApplyDamage : MonoBehaviour, IAbility
+public class ApplyDamage : MonoBehaviour, IAbilityTarget
 {
+    public List<GameObject> Targets { get; set; }
+    public int damage = 10;
+
     public void Execute()
     {
-        Debug.Log("DAMAGE");
+        foreach (var target in Targets)
+        {
+            var health = target.GetComponent<CharacterHealth>();
+            if (health != null) health.Health -= damage;
+        }
     }
 }

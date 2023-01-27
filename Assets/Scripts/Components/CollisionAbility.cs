@@ -10,7 +10,25 @@ public class CollisionAbility : MonoBehaviour, IConvertGameObjectToEntity, IAbil
     public Collider Collider;
 
     public List<MonoBehaviour> collisionsActions = new List<MonoBehaviour>();
-    public List<Collider> collisions;
+    public List<IAbilityTarget> collisionActionsAbilities = new List<IAbilityTarget>();
+
+    [HideInInspector] public List<Collider> collisions;
+
+
+    private void Start()
+    {
+        foreach (var action in collisionsActions)
+        {
+            if (action is IAbilityTarget ability)
+            {
+                collisionActionsAbilities.Add(ability);
+            }
+            else
+            {
+                Debug.Log("Collision action must derive from IAbility!!!");
+            }
+        }
+    }
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
@@ -55,7 +73,16 @@ public class CollisionAbility : MonoBehaviour, IConvertGameObjectToEntity, IAbil
 
     public void Execute()
     {
-        Debug.Log("HIT");
+        foreach (var action in collisionActionsAbilities)
+        {
+            action.Targets = new List<GameObject>();
+            collisions.ForEach(c =>
+            {
+                if (c != null)
+                    action.Targets.Add(c.gameObject);
+            });
+            action.Execute();
+        }
     }
 
     public struct ActorColliderData : IComponentData

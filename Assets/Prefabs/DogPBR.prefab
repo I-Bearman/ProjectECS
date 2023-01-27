@@ -2005,7 +2005,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.05
-  dashSpeed: 200
+  dashSpeed: 30
   dashTime: 0.05
   dashDelay: 3
   ShootAction: {fileID: 2027389379583391085}
