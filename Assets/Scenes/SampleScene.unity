@@ -986,7 +986,6 @@ GameObject:
   - component: {fileID: 1270638969}
   - component: {fileID: 1270638968}
   - component: {fileID: 1270638970}
-  - component: {fileID: 1270638971}
   m_Layer: 0
   m_Name: AidKit
   m_TagString: Untagged
@@ -1085,7 +1084,7 @@ MonoBehaviour:
   Collider: {fileID: 1270638964}
   collisionsActions:
   - {fileID: 1270638970}
-  - {fileID: 1270638971}
+  - {fileID: 0}
   collisions: []
 --- !u!114 &1270638969
 MonoBehaviour:
@@ -1113,18 +1112,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aid: 50
---- !u!114 &1270638971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1270638963}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57f4d2e7f4765b344b7bd0a089bc6c67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1426301508
 GameObject:
   m_ObjectHideFlags: 0
