@@ -1,7 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ApplySelfDestroy : MonoBehaviour, IAbilityTarget
+public class RicochetPerk : MonoBehaviour, IAbilityTarget
 {
     public List<GameObject> Targets { get; set; }
 
@@ -10,7 +11,9 @@ public class ApplySelfDestroy : MonoBehaviour, IAbilityTarget
         foreach (var target in Targets)
         {
             if (target.CompareTag("Player"))
-                Destroy(gameObject);
+            {
+                BulletComponent.isRicochetOn = true;
+            }
         }
     }
 }

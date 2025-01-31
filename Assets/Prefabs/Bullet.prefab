@@ -93,7 +93,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6346021811219155049
 GameObject:
@@ -110,6 +110,8 @@ GameObject:
   - component: {fileID: 6346021811219155048}
   - component: {fileID: 2000931845018109292}
   - component: {fileID: -3970916431791682736}
+  - component: {fileID: 4093130078959615349}
+  - component: {fileID: 7150492513149511691}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -173,7 +175,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &6346021811219155048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,7 +204,8 @@ MonoBehaviour:
   Collider: {fileID: 5174534653273238442}
   collisionsActions:
   - {fileID: -3970916431791682736}
-  - {fileID: 0}
+  - {fileID: 4093130078959615349}
+  - {fileID: 7150492513149511691}
   collisions: []
 --- !u!114 &-3970916431791682736
 MonoBehaviour:
@@ -217,3 +220,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+--- !u!114 &4093130078959615349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6346021811219155049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28343d5a67dd50e4583450f39d52f36c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7150492513149511691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6346021811219155049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e67da3cf234c66449f82484998b3926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBeDestroy: 0
+  timeToDestroy: 1
