@@ -13,7 +13,17 @@ public class CharacterHealth : MonoBehaviour
         _health = Health;
     }
 
+    private void Awake()
+    {
+        ChangeTitleHealth();
+    }
+
     private void Update()
+    {
+        ChangeTitleHealth();
+    }
+
+    private void ChangeTitleHealth()
     {
         if (_health != Health)
         {
