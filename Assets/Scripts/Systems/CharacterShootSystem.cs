@@ -1,6 +1,6 @@
 using Unity.Entities;
 
-public class CharacterShootSystem : ComponentSystem
+public class CharacterShootSystem : SystemBase
 {
     private EntityQuery _shootQuery;
 
@@ -14,7 +14,7 @@ public class CharacterShootSystem : ComponentSystem
     }
     protected override void OnUpdate()
     {
-        Entities.With(_shootQuery).ForEach(
+        Entities.with(_shootQuery).ForEach(
             (Entity entity, UserInputData inputData, ref InputData input, ref MoveData move) => 
             {
                 if(input.Shoot > 0f && inputData.ShootAction != null && inputData.ShootAction is IAbility ability)
