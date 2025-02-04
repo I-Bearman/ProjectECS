@@ -13,7 +13,7 @@ public class CharacterMoveSystem : SystemBase
     }
     protected override void OnStartRunning()
     {
-        Entities.With(_moveQuery).ForEach(
+        Entities.WithAll<InputData>().ForEach(
             (Entity entity, Rigidbody rigidbody, ref InputData inputData, ref MoveData move) =>
             {
                 _rigidbody = rigidbody;
@@ -21,7 +21,7 @@ public class CharacterMoveSystem : SystemBase
     }
     protected override void OnUpdate()
     {
-        Entities.With(_moveQuery).ForEach(
+        Entities.WithAll<InputData>().ForEach(
             (Entity entity, Transform transform, ref InputData inputData, ref MoveData move) =>
             {
                 if (!_isDashing)

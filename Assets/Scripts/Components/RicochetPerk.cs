@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
 
-public class RicochetPerk : MonoBehaviour, IAbilityTarget
+public class RicochetPerk : IComponentData, IAbilityTarget
 {
     public List<GameObject> Targets { get; set; }
 

@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
 
-public class RicochetPerkComponent : MonoBehaviour, IAbilityTarget
+public class RicochetPerkComponent : MonoBehaviour, IComponentData, IAbilityTarget
 {
     public List<GameObject> Targets { get; set; }
     private float _tempTime;

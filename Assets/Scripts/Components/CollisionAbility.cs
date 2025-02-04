@@ -5,7 +5,7 @@ using Unity.Mathematics;
 using UnityEngine.Tilemaps;
 using DefaultNamespace;
 
-public class CollisionAbility : MonoBehaviour, IConvertGameObjectToEntity, IAbility
+public class CollisionAbility : Baker<MonoBehaviour>, IAbility
 {
     public Collider Collider;
 
@@ -30,46 +30,7 @@ public class CollisionAbility : MonoBehaviour, IConvertGameObjectToEntity, IAbil
         }
     }
 
-    public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
-    {
-        float3 position = gameObject.transform.position;
-        switch (Collider)
-        {
-            case SphereCollider sphere:
-                sphere.ToWorldSpaceSphere(out var sphereCenter, out var sphereRadius);
-                dstManager.AddComponentData(entity, new ActorColliderData
-                {
-                    ColliderType = (Tile.ColliderType)ColliderType.Sphere,
-                    SphereCenter = sphereCenter - position,
-                    SphereRadius = sphereRadius,
-                    initialTakeOff = true
-                });
-                break;
-            case CapsuleCollider capsule:
-                capsule.ToWorldSpaceCapsule(out var capsuleStart, out var capsuleEnd, out var capsuleRadius);
-                dstManager.AddComponentData(entity, new ActorColliderData
-                {
-                    ColliderType = (Tile.ColliderType)ColliderType.Capsule,
-                    CapsuleStart = capsuleStart - position,
-                    CapsuleEnd = capsuleEnd - position,
-                    CapsuleRadius = capsuleRadius,
-                    initialTakeOff = true
-                });
-                break;
-            case BoxCollider box:
-                box.ToWorldSpaceBox(out var boxCenter, out var boxHalfExtents, out var boxOrientation);
-                dstManager.AddComponentData(entity, new ActorColliderData
-                {
-                    ColliderType = (Tile.ColliderType)ColliderType.Box,
-                    BoxCenter = boxCenter - position,
-                    BoxHalfExtents = boxHalfExtents,
-                    BoxOrientation = boxOrientation,
-                    initialTakeOff = true
-                });
-                break;
-        }
-        Collider.enabled = false;
-    }
+
 
     public void Execute()
     {
@@ -83,6 +44,48 @@ public class CollisionAbility : MonoBehaviour, IConvertGameObjectToEntity, IAbil
             });
             action.Execute();
         }
+    }
+
+    [System.Obsolete]
+    public override void Bake(MonoBehaviour authoring)
+    {
+        float3 position = GetParent().transform.position;
+        switch (Collider)
+        {
+            case SphereCollider sphere:
+                sphere.ToWorldSpaceSphere(out var sphereCenter, out var sphereRadius);
+                AddComponent(new ActorColliderData
+                {
+                    ColliderType = (Tile.ColliderType)ColliderType.Sphere,
+                    SphereCenter = sphereCenter - position,
+                    SphereRadius = sphereRadius,
+                    initialTakeOff = true
+                });
+                break;
+            case CapsuleCollider capsule:
+                capsule.ToWorldSpaceCapsule(out var capsuleStart, out var capsuleEnd, out var capsuleRadius);
+                AddComponent(new ActorColliderData
+                {
+                    ColliderType = (Tile.ColliderType)ColliderType.Capsule,
+                    CapsuleStart = capsuleStart - position,
+                    CapsuleEnd = capsuleEnd - position,
+                    CapsuleRadius = capsuleRadius,
+                    initialTakeOff = true
+                });
+                break;
+            case BoxCollider box:
+                box.ToWorldSpaceBox(out var boxCenter, out var boxHalfExtents, out var boxOrientation);
+                AddComponent(new ActorColliderData
+                {
+                    ColliderType = (Tile.ColliderType)ColliderType.Box,
+                    BoxCenter = boxCenter - position,
+                    BoxHalfExtents = boxHalfExtents,
+                    BoxOrientation = boxOrientation,
+                    initialTakeOff = true
+                });
+                break;
+        }
+        Collider.enabled = false;
     }
 
     public struct ActorColliderData : IComponentData
@@ -106,3 +109,4 @@ public class CollisionAbility : MonoBehaviour, IConvertGameObjectToEntity, IAbil
         Box = 2
     }
 }
+

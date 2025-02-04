@@ -12,7 +12,7 @@ public class BulletSystem : SystemBase
 
     protected override void OnUpdate()
     {
-        Entities.WithAll(_bulletQuery).ForEach(
+        Entities.WithAll<BulletComponent>().ForEach(
         (Entity entity, Transform transform, Rigidbody rigidbody, BulletComponent bulletComponent) =>
         {
             if (rigidbody.velocity == Vector3.zero)

@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
 
-public class ApplyDamage : MonoBehaviour, IAbilityTarget
+public class ApplyDamage : IComponentData, IAbilityTarget
 {
     public List<GameObject> Targets { get; set; }
     public int damage = 10;

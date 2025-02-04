@@ -20,10 +20,10 @@ namespace DefaultNamespace.Systems
         {
             var dstManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-            Entities.With(_collisionQuery).ForEach(
+            Entities.WithAll<ActorColliderData>().ForEach(
                 (Entity entity, CollisionAbility abilityCollision, ref ActorColliderData colliderData) =>
                 {
-                    var gameObject = abilityCollision.gameObject;
+                    var gameObject = abilityCollision.GetParent();
                     float3 position = gameObject.transform.position;
                     Quaternion rotation = gameObject.transform.rotation;
 

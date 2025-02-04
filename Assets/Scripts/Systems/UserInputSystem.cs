@@ -27,13 +27,7 @@ public class UserInputSystem : SystemBase, PlayerInputAction.IPlayerActions
 
     protected override void OnUpdate()
     {
-        foreach (var inputData in SystemAPI.Query<InputData>())
-        {
-            inputData.Move = _moveInput;
-            inputData.Shoot = _shootInput;
-            inputData.Dash = _dashInput;
-        }
-        Entities.With(_movementQuery)(
+        Entities.WithAll<InputData>().ForEach(
             (Entity entity, ref InputData inputData) => 
             {
                 inputData.Move = _moveInput;

@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
 
-public class SelfDestroyable : MonoBehaviour, IAbilityTarget
+public class SelfDestroyable : MonoBehaviour, IComponentData, IAbilityTarget
 {
     public bool canBeDestroy = false;
     public float timeToDestroy = 0;

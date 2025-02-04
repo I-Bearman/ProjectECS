@@ -13,7 +13,7 @@ public class DestroySystem : SystemBase
 
     protected override void OnUpdate()
     {
-        Entities.With(_selfDestoyableQuery).ForEach(
+        Entities.WithAll<SelfDestroyable>().ForEach(
         (Entity entity, SelfDestroyable selfDestroyable) =>
         {
             if (selfDestroyable.canBeDestroy == true)
