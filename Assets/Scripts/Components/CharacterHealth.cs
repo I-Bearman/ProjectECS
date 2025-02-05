@@ -14,17 +14,7 @@ public class CharacterHealth : IComponentData
         _health = Health;
     }
 
-    private void Awake()
-    {
-        ChangeTitleHealth();
-    }
-
     private void Update()
-    {
-        ChangeTitleHealth();
-    }
-
-    private void ChangeTitleHealth()
     {
         if (_health != Health)
         {

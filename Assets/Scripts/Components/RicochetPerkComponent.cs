@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
@@ -5,12 +6,6 @@ using UnityEngine;
 public class RicochetPerkComponent : MonoBehaviour, IComponentData, IAbilityTarget
 {
     public List<GameObject> Targets { get; set; }
-    private float _tempTime;
-
-    public void Awake()
-    {
-        _tempTime = Time.time;
-    }
 
     public void Execute()
     {
@@ -20,12 +15,9 @@ public class RicochetPerkComponent : MonoBehaviour, IComponentData, IAbilityTarg
             {
                 if (target.CompareTag("Wall"))
                 {
-                    if (_tempTime + 0.1f < Time.time)
-                    {
-                        Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
-                        rigidbody.velocity = Vector3.Reflect(rigidbody.velocity.normalized, target.transform.position.normalized) * rigidbody.velocity.magnitude;
-                        _tempTime = Time.time;
-                    }
+                    Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
+                    target.GetComponent<Collider>();
+                    rigidbody.velocity = Vector3.Reflect(rigidbody.velocity, transform.right).normalized * rigidbody.velocity.magnitude;
                 }
             }
         }
