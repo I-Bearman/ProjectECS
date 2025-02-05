@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using Unity.Entities;
 using UnityEngine;
 
-public class ApplyAid : IComponentData, IAbilityTarget
+public class ApplyAid : MonoBehaviour, IAbilityTarget
 {
     public List<GameObject> Targets { get; set; }
     public int aid = 50;

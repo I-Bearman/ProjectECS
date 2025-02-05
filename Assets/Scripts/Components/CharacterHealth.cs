@@ -1,8 +1,7 @@
-using Unity.Entities;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CharacterHealth : IComponentData
+public class CharacterHealth : MonoBehaviour
 {
     public int Health = 100;
     public Text HealthText;

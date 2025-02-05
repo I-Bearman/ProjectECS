@@ -2,7 +2,7 @@
 using Unity.Mathematics;
 using Unity.Entities;
 
-public class UserInputData : Baker<MonoBehaviour>
+public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
 {
     public float speed;
     public float dashSpeed;
@@ -13,11 +13,10 @@ public class UserInputData : Baker<MonoBehaviour>
 
     public MonoBehaviour ShootAction;
 
-    [System.Obsolete]
-    public override void Bake(MonoBehaviour authoring)
+    public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
-        AddComponent(new InputData());
-        AddComponent(new MoveData
+        dstManager.AddComponentData(entity, new InputData());
+        dstManager.AddComponentData(entity, new MoveData
         {
             Speed = speed,
             DashSpeed = dashSpeed,
@@ -27,7 +26,7 @@ public class UserInputData : Baker<MonoBehaviour>
 
         if (ShootAction != null && ShootAction is IAbility)
         {
-            AddComponent(new ShootData());
+            dstManager.AddComponentData(entity, new ShootData());
         }
     }
 }

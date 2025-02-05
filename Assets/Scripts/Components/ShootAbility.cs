@@ -1,7 +1,6 @@
-using Unity.Entities;
 using UnityEngine;
 
-public class ShootAbility : MonoBehaviour, IComponentData, IAbility
+public class ShootAbility : MonoBehaviour, IAbility
 {
     public GameObject bullet;
     public float shootDelay;

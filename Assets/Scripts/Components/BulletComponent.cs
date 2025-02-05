@@ -1,7 +1,6 @@
-using Unity.Entities;
 using UnityEngine;
 
-public class BulletComponent : IComponentData
+public class BulletComponent : MonoBehaviour
 {
     public float speed;
     public static bool isRicochetOn = false;
