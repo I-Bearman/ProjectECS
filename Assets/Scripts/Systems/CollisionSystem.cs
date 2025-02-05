@@ -7,7 +7,7 @@ using static CollisionAbility;
 
 namespace DefaultNamespace.Systems
 {
-    public class CollisionSystem : SystemBase
+    public class CollisionSystem : ComponentSystem
     {
         private EntityQuery _collisionQuery;
         private Collider[] _results = new Collider[50];

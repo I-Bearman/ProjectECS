@@ -2,7 +2,7 @@ using UnityEngine;
 using Unity.Entities;
 
 
-public class DestroySystem : SystemBase
+public class DestroySystem : ComponentSystem
 {
     private EntityQuery _selfDestoyableQuery;
 

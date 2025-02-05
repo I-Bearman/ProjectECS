@@ -2,7 +2,7 @@ using Unity.Entities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class UserInputSystem : SystemBase, PlayerInputAction.IPlayerActions
+public class UserInputSystem : ComponentSystem, PlayerInputAction.IPlayerActions
 {
     private EntityQuery _movementQuery;
 
@@ -13,7 +13,6 @@ public class UserInputSystem : SystemBase, PlayerInputAction.IPlayerActions
     protected override void OnCreate()
     {
         _movementQuery = GetEntityQuery(ComponentType.ReadOnly<InputData>());
-        
         var inputAction = new PlayerInputAction();
         inputAction.Player.SetCallbacks(this);
         inputAction.Player.Enable();
@@ -27,13 +26,7 @@ public class UserInputSystem : SystemBase, PlayerInputAction.IPlayerActions
 
     protected override void OnUpdate()
     {
-        foreach (var inputData in SystemAPI.Query<InputData>())
-        {
-            inputData.Move = _moveInput;
-            inputData.Shoot = _shootInput;
-            inputData.Dash = _dashInput;
-        }
-        Entities.With(_movementQuery)(
+        Entities.With(_movementQuery).ForEach(
             (Entity entity, ref InputData inputData) => 
             {
                 inputData.Move = _moveInput;

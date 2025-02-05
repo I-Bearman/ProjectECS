@@ -1,7 +1,7 @@
 using UnityEngine;
 using Unity.Entities;
 
-public class CharacterMoveSystem : SystemBase
+public class CharacterMoveSystem : ComponentSystem
 {
     private EntityQuery _moveQuery;
     private Rigidbody _rigidbody;
@@ -28,12 +28,12 @@ public class CharacterMoveSystem : SystemBase
                 {
                     Move(transform, inputData, move);
                 }
-                if (inputData.Dash > 0f && World.Time.ElapsedTime > _pastDashTime + move.DashDelay)
+                if (inputData.Dash > 0f && Time.ElapsedTime > _pastDashTime + move.DashDelay)
                 {
                     _isDashing = true;
                     Dash(transform, move);
                 }
-                if (_isDashing && World.Time.ElapsedTime > _pastDashTime + move.DashTime)
+                if (_isDashing && Time.ElapsedTime > _pastDashTime + move.DashTime)
                 {
                     _rigidbody.useGravity = true;
                     _isDashing = false;
@@ -60,7 +60,7 @@ public class CharacterMoveSystem : SystemBase
     }
     private void Dash(Transform transform, MoveData moveData)
     {
-        _pastDashTime = World.Time.ElapsedTime;
+        _pastDashTime = Time.ElapsedTime;
         _rigidbody.useGravity = false;
         _rigidbody.velocity = transform.forward * moveData.DashSpeed;
     }

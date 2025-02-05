@@ -1,7 +1,7 @@
 using UnityEngine;
 using Unity.Entities;
 
-public class BulletSystem : SystemBase
+public class BulletSystem : ComponentSystem
 {
     private EntityQuery _bulletQuery; 
 
@@ -12,7 +12,7 @@ public class BulletSystem : SystemBase
 
     protected override void OnUpdate()
     {
-        Entities.WithAll(_bulletQuery).ForEach(
+        Entities.With(_bulletQuery).ForEach(
         (Entity entity, Transform transform, Rigidbody rigidbody, BulletComponent bulletComponent) =>
         {
             if (rigidbody.velocity == Vector3.zero)
