@@ -1645,8 +1645,27 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7974451746429721248, guid: 828dbcce633fab144ba13cdf40e3d123, type: 3}
+      propertyPath: settings
+      value: 
+      objectReference: {fileID: 11400000, guid: b0152126fd19c134fb35dc85828d3169, type: 2}
+    - target: {fileID: 7974451746429721248, guid: 828dbcce633fab144ba13cdf40e3d123, type: 3}
       propertyPath: HealthText
       value: 
       objectReference: {fileID: 790984702}
+    - target: {fileID: 7974451746429721248, guid: 828dbcce633fab144ba13cdf40e3d123, type: 3}
+      propertyPath: shootAbility
+      value: 
+      objectReference: {fileID: 2027389379583391084}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 828dbcce633fab144ba13cdf40e3d123, type: 3}
+--- !u!114 &2027389379583391084 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2027389379583391085, guid: 828dbcce633fab144ba13cdf40e3d123, type: 3}
+  m_PrefabInstance: {fileID: 2027389379583391083}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa94d00e6d4fd72478a0d5c8c1d111d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
