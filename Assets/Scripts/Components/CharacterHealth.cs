@@ -15,11 +15,7 @@ public class CharacterHealth : MonoBehaviour
     {
         Health = settings.HeroHealth;
         _health = Health;
-    }
-
-    private void Awake()
-    {
-        ChangeTitleHealth();
+        HealthText.text = $"Health: {Health}";
     }
 
     private void Update()
