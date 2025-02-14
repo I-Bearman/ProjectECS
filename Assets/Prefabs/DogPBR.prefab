@@ -1939,7 +1939,7 @@ GameObject:
   - component: {fileID: 7974451746429721248}
   m_Layer: 0
   m_Name: DogPBR
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2004,7 +2004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b149134fefee054790797e343735c8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.05
+  speed: 0.02
   dashSpeed: 30
   dashTime: 0.05
   dashDelay: 3
@@ -2023,6 +2023,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 6346021811219155049, guid: 50334b624abe27d42a82a3491371b447, type: 3}
   shootDelay: 2
+  stats:
+    shotsCount: 0
 --- !u!136 &2116540461
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2052,7 +2054,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &7974451746429721248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2065,7 +2067,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee6208b9e763aff4dac166757387b278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: b0152126fd19c134fb35dc85828d3169, type: 2}
   Health: 100
+  shootAbility: {fileID: 2027389379583391085}
+  HealthText: {fileID: 0}
 --- !u!1 &7549893149481791979
 GameObject:
   m_ObjectHideFlags: 0

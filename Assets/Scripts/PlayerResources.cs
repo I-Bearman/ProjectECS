@@ -3,8 +3,8 @@
 namespace Assets.Scripts
 {
     [Serializable]
-    public class PlayerStats
+    public class PlayerResources
     {
-        public int shotsCount;
+        public int gold;
     }
 }
