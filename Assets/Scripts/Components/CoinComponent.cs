@@ -11,7 +11,7 @@ public class CoinComponent : MonoBehaviour, IAbilityTarget
         {
             if (target.CompareTag("Player"))
             {
-                target.GetComponent<CharacterResources>().playerResources.gold++;
+                target.GetComponent<CharacterResources>().playerResources.Gold++;
             }
         }
     }

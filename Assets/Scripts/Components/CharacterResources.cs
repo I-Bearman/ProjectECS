@@ -1,23 +1,18 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts;
 using UnityEngine.UI;
-using System;
 using UnityEngine.Networking;
+using System.IO;
 
 public class CharacterResources : MonoBehaviour
 {
     public PlayerResources playerResources;
-    [SerializeField] private Text goldText;
-    [SerializeField] private string jsonResourcesUrl;
-    private string jsonText;
+    public Text goldText;
 
-    private void Awake()
-    {
-        StartCoroutine(LoadTextFromServer(jsonResourcesUrl));
-        playerResources = JsonUtility.FromJson<PlayerResources>(jsonText);
-    }
+    [SerializeField] private string jsonResourcesUrl;
+
+    private int _gold = 0;
 
     IEnumerator LoadTextFromServer(string url)
     {
@@ -27,23 +22,52 @@ public class CharacterResources : MonoBehaviour
 
         if (!request.isHttpError && !request.isNetworkError)
         {
-            jsonText = request.downloadHandler.text;
+            playerResources = JsonUtility.FromJson<PlayerResources>(request.downloadHandler.text);
+        }
+        else if (File.Exists(Application.persistentDataPath + "/PlayerResources.json"))
+        {
+            string path = Application.persistentDataPath + "/PlayerResources.json";
+            StreamReader reader = new StreamReader(path);
+            playerResources = JsonUtility.FromJson<PlayerResources>(reader.ReadToEnd());
+            reader.Close();
         }
         else
         {
-            Debug.LogErrorFormat("error request [{0}, {1}]", url, request.error);
+            playerResources = new PlayerResources();
         }
-
         request.Dispose();
     }
 
     private void Start()
     {
-        
+        StartCoroutine(LoadTextFromServer(jsonResourcesUrl));
+    }
+    private void Update()
+    {
+        ChangeTitleResources();
     }
 
-    private void WriteStatistics()
+    private void ChangeTitleResources()
     {
+        if (_gold != playerResources.Gold)
+        {
+            goldText.text = $"Gold: {playerResources.Gold}";
+            _gold = playerResources.Gold;
+        }
+    }
 
+    private void OnApplicationQuit()
+    {
+        SaveResources();
+    }
+
+    private void SaveResources()
+    {
+        var jsonString = JsonUtility.ToJson(playerResources);
+
+        string path = Application.persistentDataPath + "/PlayerResources.json";
+        StreamWriter writer = new StreamWriter(path, true);
+        writer.WriteLine(jsonString);
+        writer.Close();
     }
 }
