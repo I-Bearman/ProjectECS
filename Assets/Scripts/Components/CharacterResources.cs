@@ -4,6 +4,8 @@ using Assets.Scripts;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.IO;
+using GoogleSheetsToUnity;
+
 
 public class CharacterResources : MonoBehaviour
 {
@@ -38,9 +40,21 @@ public class CharacterResources : MonoBehaviour
         request.Dispose();
     }
 
+    private void LoadFromGoogleSheets()
+    {
+        SpreadsheetManager.Read(new GSTU_Search("1pSqiDgjadevN0cAYiZHWys-8C-hZeuMG1Y8SykjEKXQ", "MainSheet"), UpdateCharacterResources);
+    }
+
+    private void UpdateCharacterResources(GstuSpreadSheet ss)
+    {
+        playerResources.Gold = int.Parse(ss["MainHero", "Gold"].value);
+        playerResources.Wood = int.Parse(ss["MainHero", "Wood"].value);
+    }
+
     private void Start()
     {
-        StartCoroutine(LoadTextFromServer(jsonResourcesUrl));
+        //StartCoroutine(LoadTextFromServer(jsonResourcesUrl));
+        LoadFromGoogleSheets();
     }
     private void Update()
     {
@@ -51,7 +65,8 @@ public class CharacterResources : MonoBehaviour
     {
         if (_gold != playerResources.Gold)
         {
-            goldText.text = $"Gold: {playerResources.Gold}";
+            goldText.text = $"Gold: {playerResources.Gold}\n" +
+                            $"Wood: {playerResources.Wood}";
             _gold = playerResources.Gold;
         }
     }

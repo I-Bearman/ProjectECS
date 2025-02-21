@@ -6,5 +6,6 @@ namespace Assets.Scripts
     public class PlayerResources
     {
         public int Gold;
+        public int Wood;
     }
 }
