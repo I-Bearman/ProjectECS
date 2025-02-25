@@ -42,7 +42,16 @@ public class CharacterResources : MonoBehaviour
 
     private void LoadFromGoogleSheets()
     {
-        SpreadsheetManager.Read(new GSTU_Search("1pSqiDgjadevN0cAYiZHWys-8C-hZeuMG1Y8SykjEKXQ", "MainSheet"), UpdateCharacterResources);
+        try
+        {
+            SpreadsheetManager.Read(new GSTU_Search("1pSqiDgjadevN0cAYiZHWys-8C-hZeuMG1Y8SykjEKXQ", "MainSheet"), UpdateCharacterResources);
+
+        }
+        catch (System.Exception)
+        {
+
+            LoadTextFromServer(jsonResourcesUrl);
+        }
     }
 
     private void UpdateCharacterResources(GstuSpreadSheet ss)

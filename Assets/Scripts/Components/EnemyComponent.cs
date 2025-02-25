@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyComponent : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Animator animator;
+    private NavMeshAgent navMeshAgent;
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        animator.SetFloat("velocity", navMeshAgent.velocity.magnitude);
     }
 }

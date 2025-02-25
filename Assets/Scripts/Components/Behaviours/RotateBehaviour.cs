@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class RotateBehaviour : MonoBehaviour, IBehaviour
 {
-    public CharacterHealth character;
+    private CharacterHealth character;
     
     private void Start()
     {
