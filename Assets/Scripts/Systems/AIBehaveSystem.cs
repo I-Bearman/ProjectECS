@@ -1,7 +1,4 @@
-﻿using Assets.Scripts.Components.Interfaces;
-using Unity.Entities;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Unity.Entities;
 
 public class AIBehaveSystem : ComponentSystem
 {

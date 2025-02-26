@@ -6,12 +6,10 @@ public class EnemyWalkBehaviour : MonoBehaviour, IBehaviour
 {
     private CharacterHealth hero;
     private NavMeshAgent navMeshAgent;
-    private Animator animator;
 
     private void Start()
     {
         hero = FindObjectOfType<CharacterHealth>();
-        animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.SetDestination(hero.transform.position);
     }
@@ -22,11 +20,10 @@ public class EnemyWalkBehaviour : MonoBehaviour, IBehaviour
         {
             return 1;
         }
-        return 0;
+       return 0;
     }
 
     public void Behave()
     {
-        navMeshAgent.SetDestination(hero.transform.position);
     }
 }

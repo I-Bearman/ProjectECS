@@ -1,7 +1,5 @@
 ﻿using Assets.Scripts.Components.Interfaces;
 using Unity.Entities;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class AIEvaluateSystem : ComponentSystem
 {
