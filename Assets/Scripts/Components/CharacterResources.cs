@@ -42,26 +42,19 @@ public class CharacterResources : MonoBehaviour
 
     private void LoadFromGoogleSheets()
     {
-        try
-        {
             SpreadsheetManager.Read(new GSTU_Search("1pSqiDgjadevN0cAYiZHWys-8C-hZeuMG1Y8SykjEKXQ", "MainSheet"), UpdateCharacterResources);
-        }
-        catch (System.Exception)
-        {
-            LoadTextFromServer(jsonResourcesUrl);
-        }
     }
 
     private void UpdateCharacterResources(GstuSpreadSheet ss)
     {
-        try
+        if (playerResources != null)
         {
             playerResources.Gold = int.Parse(ss["MainHero", "Gold"].value);
             playerResources.Wood = int.Parse(ss["MainHero", "Wood"].value);
         }
-        catch (System.Exception)
+        else
         {
-            LoadTextFromServer(jsonResourcesUrl);
+            StartCoroutine(LoadTextFromServer(jsonResourcesUrl));
         }
     }
 
