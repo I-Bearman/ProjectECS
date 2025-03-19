@@ -5,6 +5,7 @@ using static MyInsteller;
 public class injectionTest : MonoBehaviour
 {
     private ITest _test;
+
     [Inject]
     public void Init(ITest t)
     {
