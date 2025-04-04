@@ -14,5 +14,4 @@ public class SettingsInstaller : ScriptableObjectInstaller<SettingsInstaller>
 
 class GameConfigurationsDummy
 {
-    Screen.SetResolution(800, 600, false);
 }
